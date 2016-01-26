@@ -1,12 +1,13 @@
-package com.clipandbooks.sample.listsamples
+package com.clipandbooks.sample.listsamples;
 
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -16,10 +17,15 @@ import java.util.ArrayList;
 /**
  * Created by checks on 2016-01-22.
  */
-public class MainActivity1 extends Activity  {
+public class MainActivity1 extends Activity  implements AdapterView.OnItemClickListener{
 
     private ListView mListView = null;
     private ListViewAdapter mAdapter = null;
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Log.d("TAG", "position:" + position);
+    }
 
     private class ViewHolder {
         public TextView mTitle;
@@ -34,13 +40,31 @@ public class MainActivity1 extends Activity  {
 
         mListView = (ListView)findViewById(R.id.list);
 
+        mAdapter = new ListViewAdapter(this);
+        mAdapter.addItem("TST", "TTT");
+        mAdapter.addItem("TTT", "TT");
+        mAdapter.addItem("TTT", "TT");
+        mAdapter.addItem("TTT", "TT");
+        mAdapter.addItem("TTT", "TT");
+        mAdapter.addItem("TTT", "TT");
+        mAdapter.addItem("TTT", "TT");
+        mAdapter.addItem("TTT", "TT");
+        mAdapter.addItem("TTT", "TT");
+        mAdapter.addItem("TTT", "TT");
+        mAdapter.addItem("TTT", "TT");
+        mAdapter.addItem("TTT", "TT");
+        mAdapter.addItem("TTT", "TT");
+        mAdapter.addItem("TTT", "TT");
+        mAdapter.addItem("TTT", "TT");
 
+        mListView.setAdapter(mAdapter);
+        mListView.setOnItemClickListener(this);
     }
 
     public class ListViewAdapter extends BaseAdapter {
 
         private Context mContext;
-        private ArrayList<ListData> mListData = new ArrayList<ListData>();
+        private ArrayList<ListData> mListData = new ArrayList<>();
 
         public ListViewAdapter(Context context) {
             super();
@@ -88,8 +112,7 @@ public class MainActivity1 extends Activity  {
         }
 
         public void addItem(String title, String subscribe) {
-            ListData listItem = null;
-            listItem = new ListData();
+            ListData listItem = new ListData();
             listItem.mTitle = title;
             listItem.mSubscribe = subscribe;
 
@@ -97,7 +120,7 @@ public class MainActivity1 extends Activity  {
         }
 
         public void dataChange() {
-            mApdater.notifyDataSetChanged();
+            mAdapter.notifyDataSetChanged();
         }
 
 
